@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0",
+    "html-minifier-terser": "^7.2.0",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0"
+  },
+  "scripts": {
+    "build": "npx csso-cli css/style.css --output css/style.min.css && npx terser js/main.js --compress --mangle --output js/main.min.js && node inline-all-pages.js",
+    "test": "npx playwright test",
+    "deploy": "npm run build && npx vercel --prod",
+    "generate-ads": "tsx scripts/generate-ads.ts"
+  }
+}

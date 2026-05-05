@@ -1,0 +1,17 @@
+[[redirects]]
+  from = "/accueil"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/a-propos"
+  to = "/about.html"
+  status = 301
+
+[[redirects]]
+  from = "/nos-divisions"
+  to = "/divisions.html"
+  status = 301
+
+[build]
+  publish = "."

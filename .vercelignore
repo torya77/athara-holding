@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# JS/CSS sources (minified versions used instead)
+js/main.js
+css/style.css
+
+# Source scripts (not served)
+scripts/
+
+# Build & utility scripts
+fix-sm.js
+fix-immo.js
+inline-css.js
+inline-all.js
+inline-all-pages.js
+compress.js
+convert-webp.js
+gen-favicon.js
+favicon-letter.js
+remove-bg.js
+responsive.js
+
+# Testing
+tests/
+playwright.config.ts
+test-results/
+playwright-report/
+blob-report/
+
+# Dev config
+package.json
+package-lock.json
+netlify.toml
+CLAUDE.md
+.gitignore
+.github/
