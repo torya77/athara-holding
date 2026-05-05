@@ -89,4 +89,50 @@
     observer.observe(el);
   });
 
+  // ─── UTM TRACKING ───
+  const UTM_KEYS = ['utm_source', 'utm_campaign', 'utm_medium', 'utm_term', 'utm_content', 'div'];
+  const UTM_STORE = 'athara_utm';
+
+  (function captureUtm() {
+    const params = new URLSearchParams(window.location.search);
+    const captured = {};
+    UTM_KEYS.forEach(k => { const v = params.get(k); if (v) captured[k] = v; });
+    if (Object.keys(captured).length) {
+      try { sessionStorage.setItem(UTM_STORE, JSON.stringify(captured)); } catch (_) {}
+    }
+  })();
+
+  (function injectUtmIntoContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const params = new URLSearchParams(window.location.search);
+    let utm = {};
+    UTM_KEYS.forEach(k => { const v = params.get(k); if (v) utm[k] = v; });
+
+    if (!Object.keys(utm).length) {
+      try {
+        const stored = sessionStorage.getItem(UTM_STORE);
+        if (stored) utm = JSON.parse(stored);
+      } catch (_) {}
+    }
+
+    if (!Object.keys(utm).length) return;
+
+    Object.entries(utm).forEach(([key, val]) => {
+      if (key === 'div') return;
+      if (form.querySelector(`[name="${key}"]`)) return;
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = val;
+      form.appendChild(input);
+    });
+
+    if (utm.div) {
+      const select = form.querySelector('select[name="division"]');
+      if (select) select.value = utm.div;
+    }
+  })();
+
 })();
